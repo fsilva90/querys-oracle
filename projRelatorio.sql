@@ -1,0 +1,123 @@
+
+SELECT * FROM SPARCSN4prd.inv_unit WHERE --gkey = 208275858
+--CATEGORY like 'T%'
+ID IN ('APHU6536086','DRYU4015737'); --601355440
+-- ID, FREIGHT_KIND IN ('FCL', LCL, 'MTY'),GOODS_AND_CTR_WT_KG peso, FLEX_STRING13 CE
+--POL_GKEY (POL), POD1_GKEY(POD), category = export , CV_GKEY
+;
+                                              
+SELECT *
+FROM SPARCSN4PRD.inv_unit_fcy_visit UFV WHERE --ARRIVE_POS_LOCTYPE NOT IN ('TRUCK','VESSEL') --AND ARRIVE_POS_SLOT IS NOT NULL
+unit_gkey in (684568864,682870819); --232980339
+--TEMU2450888 / --TRLU4835155 / --HLXU5009316 / --CRLU7268906
+--TIME_LOAD, LAST_POS_LOCID  408330407
+-- Baldeação Comum - ARRIVE_POS_SLOT IS NULL / ARRIVE_POS_NAME != V* / ARRIVE_POS_LOCTYPE != VESSEL
+-- Baldeação Multi - ARRIVE_POS_SLOT IS NOT NULL / ARRIVE_POS_NAME = V* / ARRIVE_POS_LOCTYPE = VESSEL
+
+select * from SPARCSN4PRD.argo_carrier_visit WHERE 
+--gkey IN (685257869,637689215)
+ID LIKE '%NA916A%'   --I/B Dclrd Visit YSWI110 -- gkey 601355439
+;--680947292
+
+select * from SPARCSN4prd.vsl_vessel_visit_details VVD -- RAP 
+WHERE  vvd_gkey = 637689216
+--vvd.ob_vyg = 'POLO1654'--VVD.vessel_gkey = 408330407 --and vvd.flex_string01 = '00991 2019' -- GKEY 601355440
+order by vvd.vvd_gkey desc;
+--FLEX_STRING01
+
+SELECT * FROM SPARCSN4prd.VSL_VESSELS WHERE 
+gkey = 408157350
+--id like '%POLO1654%' --and OWNER_GKEY = 112551 order by gkey desc
+--NAME = 'SAN VICENTE EXPRESS' --130393341
+-- GKEY / NAME
+;
+                                                      
+SELECT * FROM SPARCSN4.inv_move_event; WHERE UFV_GKEY in (625832408,622595838);
+-- MOVE_KIND (Carga/Descarga) / TO_POS_LOCID - VIAGEM (NAVIO) / MVE_GKEY
+
+SELECT * FROM SPARCSN4PRD.inv_eq_base_order WHERE NBR LIKE 'SSZ0692031' -- 600908735(+)
+-- VESSEL_VISIT_GKEY
+;
+
+SELECT * FROM SPARCSN4PRD.inv_eq_base_order_item where EQO_GKEY = 614514856
+;
+
+SELECT * FROM SPARCSN4PRD.INV_UNIT_EQUIP where DEPART_ORDER_ITEM_GKEY = 614514889 and UNIT_GKEY = 625832405
+-- EQ_GKEY 605471598
+;
+
+
+SELECT * FROM SPARCSN4PRD.ref_equipment where ID_FULL IN ('CMAU0828725','HLXU1383122')
+--TARE_KG / EQTYP_GKEY
+;
+
+select * from SPARCSN4PRD.ref_equip_type where GKEY = 557
+;-- NOMINAL_LENGTH (Tamanho) 
+
+
+SELECT * FROM SPARCSN4PRD.ref_routing_point where GKEY IN (159081640,46870);
+-- ID (POD)
+;
+
+SELECT * FROM SPARCSN4PRD.ref_unloc_code WHERE CNTRY_CODE = 'BR'
+;
+
+
+
+SELECT * FROM SPARCSN4PRD.vsl_vessel_visit_lines where vvd_gkey = 600908736
+;
+
+SELECT * FROM SPARCSN4PRD.vsl_vessel_berthings where vvd_gkey = 600908736;
+--ATA
+
+
+-- ID /
+
+
+
+SELECT * FROM SPARCSN4.vsl_vessel_classes WHERE --gkey =408329489
+ID like '%LPAN%'
+;
+
+
+SELECT * FROM SPARCSN4PRD.REF_BIZUNIT_SCOPED where id like '%MSK%' and ROLE = 'LINEOP'
+--GKEY = 112551
+;
+
+SELECT * FROM SPARCSN4.ref_line_operator where LINEOP_ID = 33792668
+;
+
+select * from SPARCSN4PRD.argo_carrier_visit WHERE 
+gkey IN (685257869,637689215)
+--ID LIKE '%HSR1494KE%'   --I/B Dclrd Visit YSWI110 -- gkey 601355439
+;
+-- ACTUAL_OB_CV (OB ACTUAL VISIT) - 251737970 
+-- gkey   601355439      /CVCVD_GKEY 601355440
+
+
+select * from SPARCSN4PRD.ref_line_operator where lineop_id = 112607;
+
+SELECT * FROM SPARCSN4.SRV_EVENT;
+
+SELECT * FROM SPARCSN4PRD.rail_ar_cars;
+
+select * from SPARCSN4prd.argo_digital_assets
+where id like '%%';
+
+
+
+
+
+
+SELECT * -- u.GKEY, u.ID, u.CATEGORY, u.CHANGED, u.FREIGHT_KIND, U.CARRIAGE_UE, U.PRIMARY_UE
+FROM SPARCSN4PRD.INV_UNIT iu --existe Unit
+INNER JOIN SPARCSN4PRD.INV_UNIT_EQUIP iue ON iue.UNIT_GKEY = iu.GKEY --existe UnitEquipment
+INNER JOIN SPARCSN4PRD.INV_EQ_BASE_ORDER_ITEM ieboi ON ieboi.GKEY = iue.DEPART_ORDER_ITEM_GKEY --existe EqBaseOrderItem
+INNER JOIN SPARCSN4PRD.INV_EQ_BASE_ORDER iebo ON iebo.GKEY = ieboi.EQO_GKEY -- existe EqBaseOrder\Booking
+WHERE iu.GKEY IN (625832405)
+ORDER BY iu.ID, iu.GKEY DESC; 
+
+
+
+
+

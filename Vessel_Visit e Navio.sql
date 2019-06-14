@@ -1,0 +1,30 @@
+select * from SPARCSN4.argo_carrier_visit WHERE ID LIKE '%POLO1654%'  -- 251737970
+AND CVCVD_GKEY = 251737971 --(vsl_vessel_visit_details)
+; -- 
+
+SELECT * FROM SPARCSN4.VSL_VESSELS WHERE id like '%POLO%' -- 35489221
+--and OWNER_GKEY = 112551 order by gkey desc
+; 
+
+select * from SPARCSN4.vsl_vessel_visit_details VVD 
+WHERE VESSEL_GKEY = 35489221 --(VSL_VESSELS)
+AND VVD_GKEy =  251737971
+order by vvd.vvd_gkey desc
+;
+
+
+SELECT 
+    VV.NAME
+    ,VVD.FLEX_STRING01 AS RAP
+    ,ACV.ATA
+    --,VVD.*
+FROM 
+    SPARCSN4.ARGO_CARRIER_VISIT ACV
+    ,SPARCSN4.VSL_VESSELS VV
+    ,SPARCSN4.VSL_VESSEL_VISIT_DETAILS VVD
+WHERE
+    ACV.CVCVD_GKEY = VVD.VVD_GKEY
+    AND VVD.VESSEL_GKEY = VV.GKEY
+    AND ACV.ID = 'POLO1654'
+;
+    
