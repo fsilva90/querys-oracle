@@ -1,0 +1,1 @@
+# querys-oracle
