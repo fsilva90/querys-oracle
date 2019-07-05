@@ -1,1 +1,1 @@
-# querys-oracle
+# Querys Oracle 11g
