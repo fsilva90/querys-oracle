@@ -1,5 +1,5 @@
 -- Consulta navio exportação 
--- EXPORTACAO
+-- EXPORTACAO 08/07/2019
 SELECT 
      null as navio
     ,null as prev_atra
@@ -47,18 +47,20 @@ SELECT
     ,ret.id                                             iso
     ,ufv.last_pos_locid                                 c_v
     ,unt.goods_ctr_wt_kg_advised                        peso_bt_manif
+------------------- Descricao de Peso Buto Aferido -------------------
     ,case
-        when unt.goods_ctr_wt_kg_gate_measured is not null 
+        when unt.goods_ctr_wt_kg_gate_measured is not null -- Se existir Scale Gate e nao exisitir Scale Yard, retornar Scale Gate
             and unt.Goods_Ctr_Wt_Kg_Yard_Measured is null
                 then to_char(unt.goods_ctr_wt_kg_gate_measured)
-        when unt.goods_ctr_wt_kg_gate_measured is null 
+        when unt.goods_ctr_wt_kg_gate_measured is null     -- Se nao exisitir Scale Gate, retornar Scale Yard
             and unt.Goods_Ctr_Wt_Kg_Yard_Measured is not null
                 then to_char(unt.Goods_Ctr_Wt_Kg_Yard_Measured)
-        when unt.goods_ctr_wt_kg_gate_measured is not null 
+        when unt.goods_ctr_wt_kg_gate_measured is not null -- Se existir Scale Gate e exisitir Scale Yard, retornar Scale Yard
             and unt.Goods_Ctr_Wt_Kg_Yard_Measured is not null
                 then to_char(unt.Goods_Ctr_Wt_Kg_Yard_Measured)
-        else '-'
+        else '-'                                           -- Se nao existir Scale Gate e nao exisitir Scale Yard, nao retornar valor
      end                                                peso_bt_afer
+----------------------------------------------------------------------
     ,unt.goods_and_ctr_wt_kg                            peso_vgm
     ,to_char(ufv.time_in, 'DD/MM/YYYY HH24:MI:SS')      dt_entrada
     ,to_char(ufv.time_out, 'DD/MM/YYYY HH24:MI:SS')     dt_saida
